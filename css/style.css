@@ -1,0 +1,32 @@
+@font-face {
+  src: url('../fonts/RobotoMono-Regular.ttf');
+  font-family: 'Roboto Mono';
+}
+
+body {
+  background-image: url('../images/gradient_poster.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Roboto Mono';
+}
+
+/* Make content area fill the entire browser window */
+html,
+.fullscreen {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Center the content in the browser window */
+.container {
+  margin: auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+}

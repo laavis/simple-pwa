@@ -20,7 +20,17 @@
     <div class="container">
       <h1 class="title">Hello World! <i class="fas fa-rocket"></i></h1>
       <p>This is a test PWA</p>
+       <form>
+        <input type="text" name="greeting" placeholder="type greeting">
+        <button type="submit">Send</button>
+      </form>
+      <div class="greetings">
+        <button id="refresh">Refresh</button>
+        <ul></ul>
+      </div>
     </div>
+    <script src="js/fetchGQL.js"></script>
+    <script src="js/idb.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

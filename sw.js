@@ -25,12 +25,16 @@ self.addEventListener('install', (e) => {
 
 // serve cached content when offline
 self.addEventListener('fetch', (e) => {
-  e.respondWith(async () => {
-    try {
-      const res = await caches.match(e.request);
-      return res || fetch(e.request);
-    } catch (err) {
-      console.error(err);
-    }
-  })();
+  e.respondWith(
+    (async () => {
+      try {
+        const response = await caches.match(e.request);
+        return response || fetch(e.request);
+      } catch (e) {
+        console.error(err);
+      }
+    })()
+  );
 });
+
+console.log('done');

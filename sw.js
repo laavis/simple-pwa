@@ -1,5 +1,4 @@
 const cacheName = 'pwa';
-console.log(cacheName);
 
 const filesToCache = [
   './',
@@ -14,18 +13,14 @@ const filesToCache = [
 ];
 
 // start sw and cache all content
-self.addEventListener('install', (e) => {
-  console.log('install');
-
-  e.waitUntil(
+self.addEventListener('install', (event) => {
+  event.waitUntil(
     (async () => {
       try {
-        const cache = await caches.open(cacheName);
-        console.log(cache);
-
+        const cache = await caches.open('greetings');
         return cache.addAll(filesToCache);
-      } catch (err) {
-        console.error(err);
+      } catch (e) {
+        console.log(e.message);
       }
     })()
   );

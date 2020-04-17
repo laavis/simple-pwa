@@ -1,15 +1,15 @@
 const cacheName = 'pwa';
 
 const filesToCache = [
-  './',
-  './index.html',
-  './css/style.css',
-  './js/main.js',
-  './images/gradient_poster.png',
-  './fonts/RobotoMono-Regular.ttf',
-  './fontawesome/fa-solid-900.woff2',
-  './fontawesome/fa-brands-400.woff2',
-  './fontawesome/fa-regular-400.woff2',
+  '/',
+  '/index.html',
+  '/css/style.css',
+  '/js/main.js',
+  '/images/gradient_poster.png',
+  '/fonts/RobotoMono-Regular.ttf',
+  '/fontawesome/fa-solid-900.woff2',
+  '/fontawesome/fa-brands-400.woff2',
+  '/fontawesome/fa-regular-400.woff2',
 ];
 
 // start sw and cache all content
@@ -18,9 +18,10 @@ self.addEventListener('install', (event) => {
     (async () => {
       try {
         const cache = await caches.open('greetings');
-        return cache.addAll(filesToCache);
+        await cache.addAll(filesToCache);
+        return cache;
       } catch (e) {
-        console.log(e.message);
+        console.error(e);
       }
     })()
   );
@@ -29,13 +30,14 @@ self.addEventListener('install', (event) => {
 // serve cached content when offline
 self.addEventListener('fetch', (event) => {
   console.log('ServiceWorker Fetch', event.request.url);
+
   event.respondWith(
     (async () => {
       try {
         const response = await caches.match(event.request);
         return response || fetch(event.request);
       } catch (e) {
-        console.log(e.message);
+        console.error(e);
       }
     })()
   );

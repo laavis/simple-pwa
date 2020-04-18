@@ -4,7 +4,7 @@ window.addEventListener('load', async () => {
   const ul = document.querySelector('ul');
   const rfrsh = document.querySelector('#refresh');
   const form = document.querySelector('form');
-  const username = 'changeThis';
+  const username = 'laavis';
   const greeting = form.elements.greeting;
 
   const init = async () => {
@@ -14,17 +14,25 @@ window.addEventListener('load', async () => {
       for (const message of greetings) {
         data.push(message);
       }
-    } catch (e) {
-      console.log(e.message);
+    } catch (err) {
+      console.error(err);
     }
 
     ul.innerHTML = '';
-    data.forEach((item) => {
-      ul.innerHTML += `<ul>${item.username}: ${item.greeting}</ul>`;
-    });
+    console.log(data);
+
+    addGreetings(data);
   };
 
   init();
+  initIndexedDB();
 
   rfrsh.addEventListener('click', init);
 });
+
+const addGreetings = (data) => {
+  const ul = document.querySelector('ul');
+  data.forEach((x) => {
+    ul.innerHTML += `<li>${x.username}: ${x.greeting}</li>`;
+  });
+};

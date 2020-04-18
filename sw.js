@@ -12,29 +12,30 @@ const filesToCache = [
 ];
 
 // start sw and cache all content
-self.addEventListener('install', (e) => {
-  e.waitUntil(async () => {
-    try {
-      const cache = await caches.open(cacheName);
-      return cache.addAll(filesToCache);
-    } catch (err) {
-      console.error();
-    }
-  })();
-});
-
-// serve cached content when offline
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
+self.addEventListener('install', (event) => {
+  event.waitUntil(
     (async () => {
       try {
-        const response = await caches.match(e.request);
-        return response || fetch(e.request);
+        const cache = await caches.open('greetings');
+        await cache.addAll(filesToCache);
+        return cache;
       } catch (e) {
-        console.error(err);
+        console.error(e);
       }
     })()
   );
 });
 
-console.log('done');
+// serve cached content when offline
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    (async () => {
+      try {
+        const response = await caches.match(event.request);
+        return response || fetch(event.request);
+      } catch (e) {
+        console.error(e);
+      }
+    })()
+  );
+});
